@@ -1,0 +1,19 @@
+<!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory -->
+
+<input type="file" id="filepicker" name="fileList" webkitdirectory multiple />
+<ul id="listing"></ul>
+
+
+<script>
+document.getElementById("filepicker").addEventListener("change", function(event) {
+  let output = document.getElementById("listing");
+  let files = event.target.files;
+
+  for (let i=0; i<files.length; i++) {
+    let item = document.createElement("li");
+    item.innerHTML = files[i].webkitRelativePath;
+    output.appendChild(item);
+  };
+}, false);
+
+</script>

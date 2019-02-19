@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.quilljs.com/1.3.6/quill.snow.css">
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <style>
+        #content-container {
+            margin: 25px auto;
+            width: 400px;
+        }
+
+        #editor-container {
+            height: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="content-container">
+        <div id="toolbar-container">
+            <button class="ql-bold" data-toggle="tooltip" data-placement="bottom" title="Bold"></button>
+            <button class="ql-italic" data-toggle="tooltip" data-placement="bottom" title="Add italic text <cmd+i>"></button>
+        </div>
+        <div id="editor-container"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var quill = new Quill('#editor-container', {
+                modules: {
+                    toolbar: '#toolbar-container'
+                },
+                placeholder: 'Compose an epic...',
+                theme: 'snow'
+            });
+
+            // Enable all tooltips
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Can control programmatically too
+            $('.ql-italic').mouseover();
+            setTimeout(function () {
+                $('.ql-italic').mouseout();
+            }, 2500);
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>

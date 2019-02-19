@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>jQuery alertTs Plugin Demos</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="jquery.alertTs.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<style>
+body { background-color:#ECE9F2; font-family:'roboto'}
+.box { margin:150px auto 30px auto; max-width:640px;}
+.box input{ border:0; background-color:#1B9AAA; color:#fff; padding:10px; margin:10px; float:left;}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h1 style="margin-bottom:30px;">jQuery alertTs Plugin Demos</h1>
+  <input type="button" class="btn1" value="Normal">
+  <input type="button" class="btn2" data-title="Popover Content" value="Custom content">
+  <input type="button" class="btn3" value="Click Event">
+  <input type="button" class="btn4" value="Hover Event">
+  <input type="button" class="btn5" value="Click blank area to close">
+</div>
+<script>
+
+$('.btn1').alertTs({
+  position : true
+});
+
+$('.btn2').alertTs({
+  aLoc : 'center',
+  face : 'bottom',
+  position : true
+});
+
+$('.btn3').alertTs({
+  act : 'click',
+  cssStyle : 'blue',
+  position : true,
+  close:true
+});
+
+$('.btn4').alertTs({
+  act : 'hover',
+  face : 'left',
+  cssStyle : 'blue',
+  left  : -10,
+  top   : -20,
+  aLoc  : 20,  
+  aSize : 14,  
+  css : {
+    fontSize : 20,
+    padding : "20px"
+  },
+  position : true
+});
+
+$('.btn5').alertTs({
+  act : 'otherClick',
+  aLoc  : 'right,-10',
+  position : true
+});
+</script>
+
+</body>
+</html>

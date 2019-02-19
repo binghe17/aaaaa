@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>quill-cursors example</title>
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="quill.snow.css">
+  <link rel="stylesheet" href="quill-cursors.css">
+
+  <script src="quill.min.js"></script>
+  <script src="quill-cursors.min.js"></script>
+
+  <style>
+    html,
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .editor {
+      margin: 10px;
+      flex-grow: 1;
+      width: 40%;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h1>quill-cursors example</h1>
+  <div class="container">
+    <div class="editor">
+      <h2>User 1</h2>
+      <div id="editor-one"></div>
+    </div>
+    <div class="editor">
+      <h2>User 2</h2>
+      <div id="editor-two"></div>
+    </div>
+  </div>
+
+
+  <script>
+    Quill.register('modules/cursors', QuillCursors);
+
+    var quillOne = new Quill('#editor-one', {
+      theme: 'snow',
+      modules: {
+        cursors: true
+      }
+    });
+
+    var quillTwo = new Quill('#editor-two', {
+      theme: 'snow',
+      modules: {
+        cursors: true
+      }
+    });
+
+    var cursorsOne = quillOne.getModule('cursors');
+    var cursorsTwo = quillTwo.getModule('cursors');
+
+    function textChangeHandler(quill) {
+      return function (delta, oldDelta, source) {
+        if (source == 'user')
+          quill.updateContents(delta);
+      };
+    }
+
+    quillOne.on('text-change', textChangeHandler(quillTwo));
+    quillTwo.on('text-change', textChangeHandler(quillOne));
+
+    quillOne.on('selection-change', function (range, oldRange, source) {
+      if (range)
+        cursorsTwo.setCursor('1', range, 'User 1', 'red');
+    });
+
+    quillTwo.on('selection-change', function (range, oldRange, source) {
+      if (range)
+        cursorsOne.setCursor('2', range, 'User 2', 'blue');
+    });
+
+  </script>
+</body>
+
+</html>

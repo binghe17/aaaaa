@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="http://cdn.quilljs.com/1.2.6/quill.bubble.css" rel="stylesheet">
+    <link href="http://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="http://cdn.quilljs.com/1.2.6/quill.js"></script>
+    <script src="quill-placeholder-module.min.js"></script>
+<style>
+#editor {
+  height: 175px;
+}
+
+.ql-picker.ql-placeholder {
+  width: 118px;
+}
+
+.ql-picker.ql-placeholder > span.ql-picker-label::before {
+  content: 'Placeholders';
+}
+
+.ql-picker.ql-placeholder > span.ql-picker-options > span.ql-picker-item::before {
+  content: attr(data-label);
+}
+</style>
+</head>
+
+<body>
+    <div id="toolbar">
+        <span class="ql-formats">
+          <select class="ql-header" defaultValue="">
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            <option value=""></option>
+          </select>
+          <select class="ql-font" defaultValue=""></select>
+          <select class="ql-size" defaultValue="">
+            <option value="small"></option>
+            <option value=""></option>
+            <option value="large"></option>
+            <option value="huge"></option>
+          </select>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-bold"></button>
+          <button class="ql-italic"></button>
+          <button class="ql-underline"></button>
+          <button class="ql-strike"></button>
+          <button class="ql-blockquote"></button>
+        </span>
+        <span class="ql-formats">
+          <select class="ql-placeholder">
+            <option value="foo">Foo</option>
+            <option value="required">Required</option>
+          </select>
+        </span>
+      </div>
+      <div id="editor"></div>
+      
+
+    <script>
+Quill.register('modules/placeholder', PlaceholderModule.default(Quill))
+
+var quill = new Quill('#editor', {
+  modules: {
+    toolbar: {container: `#toolbar`},
+    placeholder: {
+      placeholders: [
+        {id: 'foo', label: 'Foo'},
+        {id: 'required', label: 'Required', required: true}
+      ]
+    }
+  },
+  placeholder: 'Compose an epic...',
+  theme: 'snow'  // or 'bubble'
+});
+
+// setting content with a placeholder
+// quill.clipboard.dangerouslyPasteHTML('<span class="ql-placeholder-content" data-id="foo" data-label="foo"></span>')
+    </script>
+</body>
+
+</html>

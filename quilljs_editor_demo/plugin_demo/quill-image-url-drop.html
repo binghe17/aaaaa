@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="http://cdn.quilljs.com/1.2.2/quill.snow.css" rel="stylesheet">
+
+    <script src="http://cdn.quilljs.com/1.2.2/quill.min.js"></script>
+    <script src="quill-image-url-drop.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <style>
+        .a,
+        .b {
+            width: 500px;
+            height: 100%;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <hr>
+    <!-- <div class="b">
+        <img src="https://i.ytimg.com/vi/7c9f9sr6BPg/hqdefault.jpg" />
+    </div> -->
+    <div class="a">
+
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTph9FaVhogN-kBywPyLbT8Ac1u7Lw2AITPXjnu7Uk3OwubySgHfQ" />
+    </div>
+    <hr>
+
+
+    <div class="editor">
+    <textarea>
+            start
+       
+       
+
+
+            editor end
+
+    </textarea>
+    </div>
+    <hr>
+
+
+    <script>
+        Quill.register("modules/imageUrlDrop", QuillImageUrlDrop);
+        var quill = new Quill('.editor', {
+            // ...
+            modules: {
+                // ...
+                imageUrlDrop: {
+                    container: ".a" //功能不全， 只能拖拽指定的第一个。(只能在编辑器的最后增加。)
+                }
+            }
+        });
+
+        // $('.a img')
+        //     .attr('src','https://i.ytimg.com/vi/7c9f9sr6BPg/hqdefault.jpg')
+        //     .attr('data-url','https://i.ytimg.com/vi/7c9f9sr6BPg/hqdefault.jpg')
+
+    </script>
+</body>
+
+</html>

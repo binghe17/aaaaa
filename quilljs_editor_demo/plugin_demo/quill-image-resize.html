@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Quill Image Resize Module Demo</title>
+    <script src="http://cdn.quilljs.com/1.2.2/quill.min.js"></script>
+    <link href="http://cdn.quilljs.com/1.2.2/quill.snow.css" rel="stylesheet">
+    <script src="quill-image-resize.min.js"></script>
+</head>
+
+<body>
+<h1>Quill Image Resize Module Demo</h1>
+<div id="editor" style="max-height:500px;overflow:auto">
+    <p>Click on the Image Below to resize</p>
+    <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTph9FaVhogN-kBywPyLbT8Ac1u7Lw2AITPXjnu7Uk3OwubySgHfQ"></p>
+    <p>Some initial <strong>bold</strong> text</p>
+    <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD0NaHg1nn6Q0DYZ2Ds7IStSkOivKqbGpahbpSwcVs0Z_Dm7iK"></p>
+</div>
+<p>Also see <a href="https://github.com/kensnyder/quill-image-drop-module">quill-image-drop-module</a>,
+    a module that enables copy-paste and drag/drop for Quill.</p>
+<script>
+var quill = new Quill('#editor', {
+	theme: 'snow',
+	modules: {
+        imageResize: {} //https://github.com/kensnyder/quill-image-resize-module
+        // ImageResize: {
+        //     modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+
+        //     handleStyles: {
+        //         backgroundColor: 'black',
+        //         border: 'none',
+        //         color: white
+        //         // other camelCase styles for size display
+        //     }
+
+        //     displayStyles: {
+        //         backgroundColor: 'black',
+        //         border: 'none',
+        //         color: white
+        //         // other camelCase styles for size display
+        //     }
+
+        //     // ...
+        //     toolbarStyles: {
+        //         backgroundColor: 'black',
+        //         border: 'none',
+        //         color: white
+        //         // other camelCase styles for size display
+        //     },
+        //     toolbarButtonStyles: {
+        //         // ...
+        //     },
+        //     toolbarButtonSvgStyles: {
+        //         // ...
+        //     },
+        // }
+	}
+});
+
+</script>
+</body>
+
+</html>

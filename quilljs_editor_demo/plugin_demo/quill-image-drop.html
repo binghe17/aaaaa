@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="http://cdn.quilljs.com/1.2.2/quill.snow.css" rel="stylesheet">
+
+    <script src="http://cdn.quilljs.com/1.2.2/quill.min.js"></script>
+    <script src="quill-image-drop.min.js"></script>
+
+</head>
+
+<body>
+    <h1>Quill Image Drop Module</h1>
+    <p>Copy/paste or drag images into the rich-text editor.</p>
+    <div id="editor">
+        <p>Hello World!</p>
+        <p>Some initial <strong>bold</strong> text</p>
+    </div>
+
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                imageDrop: true
+            }
+        });
+
+    </script>
+</body>
+
+</html>

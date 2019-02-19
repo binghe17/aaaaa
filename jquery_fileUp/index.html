@@ -1,0 +1,506 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery FileUp Demos</title>
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <link href="jquery.growl.css" rel="stylesheet" type="text/css">
+    <script src="jquery.growl.js"></script>
+
+    <link href="src/fileup.css" rel="stylesheet" type="text/css">
+    <script src="src/fileup.js"></script>
+    <!-- <link href="https://cdn.rawgit.com/shabuninil/fileup/master/src/fileup.min.js" rel="stylesheet">
+    <script src="https://cdn.rawgit.com/shabuninil/fileup/master/src/fileup.min.css"></script> -->
+
+
+</head>
+
+<body>
+    <div class="fileUploadBox">
+
+<!-- 
+        <h1>jQuery FileUp Demos</h1>
+        <h2>Basic</h2>
+        <button type="button" class="btn btn-success fileup-btn">
+            Select file
+            <input type="file" id="upload-1" name="files">
+        </button>
+        <div id="upload-1-queue" class="queue"></div>
+
+
+        <h2>Multi Upload</h2>
+        <form id="multiple">
+            <button type="button" class="btn btn-success fileup-btn">
+                Select files
+                <input type="file" id="upload-2" name="files" multiple>
+            </button>
+            <a class="control-button btn btn-link" style="display: none" href="javascript:$.fileup('upload-2', 'upload', '*')">Upload
+                all</a>
+            <a class="control-button btn btn-link" style="display: none" href="javascript:$.fileup('upload-2', 'remove', '*')">Remove
+                all</a>
+
+            <div id="upload-2-queue" class="queue"></div>
+        </form>
+
+
+        <h2>Image Only</h2>
+        <button type="button" class="btn btn-success fileup-btn">
+            Select images
+            <input type="file" id="upload-3" name="files" multiple accept="image/*">
+        </button>
+        <div id="upload-3-queue" class="queue"></div>
+
+
+        <h2>Drag and drop zone</h2>
+        <form id="dropzone">
+            <button type="button" class="btn btn-success fileup-btn">
+                Select files
+                <input type="file" id="upload-4" name="files" multiple>
+            </button>
+            <div id="upload-4-dropzone" class="dropzone">
+                Dropzone
+            </div>
+            <div id="upload-4-queue" class="queue"></div>
+        </form>
+ -->
+
+
+
+
+<!-- 
+        <div>
+            <style>
+
+            .dropzone {
+                border: 3px dashed #888;
+                max-width: 350px;
+                height: 150px;
+                border-radius: 5px;
+                font-size: 20px;
+                color: #777;
+                padding-top: 50px;
+                text-align: center;
+            }
+            .dropzone.over {
+                opacity: .7;
+                border-style: solid;
+                background-color: #eee;
+            }
+            
+            #upload-5-queue { max-width:350px; max-height:300px; overflow:auto;}
+            
+            </style>
+            <div class="btn btn-success fileup-btn">
+                Select files
+                <input type="file" id="upload-5" name="files" multiple>
+            </div>
+            <div id="upload-5-dropzone" class="dropzone">
+                Dropzone
+            </div>
+            <div id="upload-5-queue" class="queue"></div>
+        </div>
+        <script>
+            
+            $.ajax({
+                url: "upload.php",
+                type: "GET",
+                datatype:"JSON",
+                success: function (data) {
+                    //console.log(data)
+                    var json = JSON.parse(data);
+                    console.log(json.files);
+                    getUploadData5(json.files);
+                    // getUploadData6(json.files);
+                },
+                error: function () {
+                    console.log('ajax 통신 실패');
+                }
+            }); 
+
+            function getUploadData5(data){
+                document.getElementById("upload-5").accept = "image/*";
+                $.fileup({
+                    autostart:true,
+                    url: 'upload.php',
+                    fieldName: 'files',
+                    inputID: 'upload-5',
+                    queueID: 'upload-5-queue',
+                    dropzoneID: 'upload-5-dropzone',
+                    files: data,
+                    templateFile: '<div id="fileup-[INPUT_ID]-[FILE_NUM]" class="fileup-file [TYPE]">' +
+                          '<div class="fileup-preview">' +
+                              '<img src="[PREVIEW_SRC]" alt="[NAME]"/>' +
+                          '</div>' +
+                          '<div class="fileup-container">' +
+                              '<div class="fileup-description">' +
+                                    '<span class="fileup-name">[NAME]</span> (<span class="fileup-size">[SIZE_HUMAN]</span>)' +
+                              '</div>' +
+                              '<div class="fileup-controls">' +
+                                  '<span class="fileup-remove" onclick="deleteFile(\'[INPUT_ID]\', \'[NAME]\',[FILE_NUM]);" title="[REMOVE]"></span>' +
+                            
+                                  '<span class="fileup-upload" onclick="$.fileup(\'[INPUT_ID]\', \'upload\', \'[FILE_NUM]\');">[UPLOAD]</span>' +
+                                  '<span class="fileup-abort" onclick="$.fileup(\'[INPUT_ID]\', \'abort\', \'[FILE_NUM]\');" style="display:none">[ABORT]</span>' +
+                              '</div>' +
+                              '<div class="fileup-result"></div>' +
+                              '<div class="fileup-progress">' +
+                                    '<div class="fileup-progress-bar"></div>' +
+                              '</div>' +
+                          '</div>' +
+                          '<div class="fileup-clear"></div>' +
+                      '</div>',
+                })
+                .select(function (file) {
+                    $('#dropzone .control-button').show();
+                })
+                .remove(function (file, total) {
+                    if (file === '*' || total === 1) {
+                        $('#dropzone .control-button').hide();
+                    }
+                })
+                .success(function (response, file_number, file) {
+                    // console.log(file);
+                    // if(file.error) $.growl.error({ message: file.error });
+                    // else 
+                    $.growl.notice({ title: "Upload success!", message: file.name });
+                })
+                .error(function (event, file, file_number) {
+                    $.growl.error({ message: "Upload error!" });
+                })
+                .dragEnter(function (event) {
+                    $(event.target).addClass('over');
+                })
+                .dragLeave(function (event) {
+                    $(event.target).removeClass('over');
+                })
+                .dragEnd(function (event) {
+                    $(event.target).removeClass('over');
+                });
+            }
+        
+            function deleteFile(inputId, filename, num){
+                $.ajax({
+                    url: "upload.php?file="+ filename,
+                    data: {'file': filename},
+                    type: "DELETE",
+                    datatype:"JSON",
+                    success: function (data) {
+                        var json = JSON.parse(data);
+                        console.log(json.files);
+                        $.fileup(inputId, 'remove', num);
+                        $.growl.warning({title:'File Delete!', message: filename });//warning
+                    },
+                    error: function () {
+                        console.log('ajax 통신 실패');
+                    }
+                });
+            }
+
+
+
+        </script> -->
+
+        <div>
+            <style>
+            .dropzone {
+                border: 3px dashed #888;
+                min-width: 360px;
+                height: 150px;
+                border-radius: 5px;
+                font-size: 20px;
+                color: #777;
+                padding-top: 50px;
+                text-align: center;
+                margin: 5px 0;
+            }
+            .dropzone.over {
+                opacity: .7;
+                border-style: solid;
+                background-color: #eee;
+            }
+            #upload-6-queue { min-width:360px; max-height:400px; overflow:auto;}
+            .fileup-theme2{min-width: 360px;}
+            .fileUploadBox{min-width: 360px;margin: 4px;}
+            .show{display: block;cursor: pointer;}
+            </style>
+
+            <link href="fileup.theme2.min.css" rel="stylesheet" type="text/css"/>
+            <div class="fileup-theme2">
+                <div id="upload-6-dropzone" class="dropzone">
+                    Dropzone
+                </div>
+                <div id="upload-6-queue" class="fileup-queue">
+                    <div class="btn btn-default fileup-btn">
+                        <input type="file" id="upload-6" multiple>
+                    </div>
+                </div>
+            </div>
+            <textarea id='input1' style="width:100%; height:200px;"></textarea>
+        </div>
+        <script>
+            $(function(){
+                $('#upload-6-queue').on('click', '.fileup-file', function(e){
+                    var isClickDeleteBtn = $(e.target).attr('class') == 'fileup-remove';
+                    if(!isClickDeleteBtn){
+                        var imgsrc = $('img',this).attr('data');
+                        //console.log(imgsrc); //
+                        $('#input1').val( $('#input1').val() +'\n'+ imgsrc);//이미지주소를 입력란에 삽입하지 않음.
+                    }
+
+                });
+                $('#upload-6-queue').on('mouseover','.fileup-file',function(e){
+                    console.log('mouserover')
+                    $('.fileup-description',this).addClass('show');
+                });
+                $('#upload-6-queue').on('mouseout','.fileup-file',function(e){
+                    $('.fileup-description',this).removeClass('show');
+                });
+
+
+
+
+            });
+
+            //업로드된 파일 리스트 가져오기. (초기실행)
+            $.ajax({
+                url: "upload.php",
+                type: "GET",
+                datatype:"JSON",
+                success: function (data) {
+                    //console.log(data)
+                    var json = JSON.parse(data);
+                    //console.log(json.files);
+                    getUploadData6(json.files);
+                },
+                error: function () {
+                    console.log('ajax 통신 실패');
+                }
+            }); 
+
+            function getUploadData6(data){
+                //document.getElementById("upload-6").accept = "image/*";//이미지만 업로드 가능
+                document.getElementById("upload-6").accept = "zip,7z,rar,doc,docx,xls,xlsx,xml,txt,rtf,pdf,jpg,jpeg,png,gif";
+                $.fileup({
+                    autostart:true,
+                    url: 'upload.php',
+                    fieldName: 'files',
+                    inputID: 'upload-6',
+                    queueID: 'upload-6-queue',
+                    dropzoneID: 'upload-6-dropzone',
+                    files: data,
+                    templateFile: '<div id="fileup-[INPUT_ID]-[FILE_NUM]" class="fileup-file [TYPE]" title="[NAME] ([SIZE_HUMAN])">' +
+                          '<div class="fileup-preview">' +
+                              '<img src="[PREVIEW_SRC]" alt="[NAME]" data="[FILE_SRC]" />' +
+                          '</div>' +
+                          '<div class="fileup-container">' +
+                              '<div class="fileup-description">' +
+                                    '<span class="fileup-name">[NAME]</span> (<span class="fileup-size">[SIZE_HUMAN]</span>)' +
+                              '</div>' +
+                              '<div class="fileup-controls">' +
+                                  '<span class="fileup-remove" onclick="deleteFile(\'[INPUT_ID]\', \'[NAME]\',[FILE_NUM]);" title="[REMOVE]"></span>' +
+                            
+                                  '<span class="fileup-upload" onclick="$.fileup(\'[INPUT_ID]\', \'upload\', \'[FILE_NUM]\');">[UPLOAD]</span>' +
+                                  '<span class="fileup-abort" onclick="$.fileup(\'[INPUT_ID]\', \'abort\', \'[FILE_NUM]\');" style="display:none">[ABORT]</span>' +
+                              '</div>' +
+                              '<div class="fileup-result"></div>' +
+                              '<div class="fileup-progress">' +
+                                    '<div class="fileup-progress-bar"></div>' +
+                              '</div>' +
+                          '</div>' +
+                          '<div class="fileup-clear"></div>' +
+                      '</div>',
+                })
+                .select(function (file) {
+                    $('#dropzone .control-button').show();
+                })
+                .remove(function (file, total) {
+                    if (file === '*' || total === 1) {
+                        $('#dropzone .control-button').hide();
+                    }
+                })
+                .success(function (response, file_number, file) {
+                    var filesrc = JSON.parse(response).files[0].url;
+                    $('#fileup-upload-6-'+ file_number+' img').attr('data', filesrc);
+         
+                    $.growl.notice({ title: "Upload success!", message: file.name });
+                })
+                .error(function (event, file, file_number) {
+                    $.growl.error({ message: "Upload error!" });
+                })
+                .dragEnter(function (event) {
+                    $(event.target).addClass('over');
+                })
+                .dragLeave(function (event) {
+                    $(event.target).removeClass('over');
+                })
+                .dragEnd(function (event) {
+                    $(event.target).removeClass('over');
+                });
+            }
+        
+            function deleteFile(inputId, filename, num){
+                if(confirm('파일 삭제 할까요?')){
+                    $.ajax({
+                        url: "upload.php?file="+ filename,
+                        data: {'file': filename},
+                        type: "DELETE",
+                        datatype:"JSON",
+                        success: function (data) {
+                            var json = JSON.parse(data);
+                            console.log(json.files);
+                            $.fileup(inputId, 'remove', num);
+                            $.growl.warning({title:'File Delete!', message: filename });//warning
+                        },
+                        error: function () {
+                            console.log('ajax 통신 실패');
+                        }
+                    });
+                }
+            }
+
+
+
+            // function getUploadData6(data){
+            //     $.fileup({
+            //         autostart: true,
+            //         url: 'upload.php',
+            //         inputID: 'upload-6',
+            //         queueID: 'upload-6-queue',
+            //         dropzoneID: 'upload-6-dropzone',
+            //         files: data
+            //         // files: [
+            //         //     {
+            //         //         id: 1,
+            //         //         name: 'Cat.jpg', // required
+            //         //         size: '254361',  // required
+            //         //         previewUrl: 'img/preview/cat.jpg',
+            //         //         downloadUrl: 'img/cat.jpg',
+            //         //         customParam: '123'
+            //         //     },
+            //         //     {
+            //         //         id: 2,
+            //         //         name: 'Flower.jpg', // required
+            //         //         size: '924160',     // required
+            //         //         previewUrl: 'img/preview/flower.jpg',
+            //         //         downloadUrl: 'img/flower.jpg',
+            //         //         customParam: '456'
+            //         //     },
+            //         //     {
+            //         //         name: 'FileUp.zip', // required
+            //         //         size: '23040',      // required
+            //         //         downloadUrl: 'https://github.com/shabuninil/fileup/archive/master.zip'
+            //         //     }
+            //         // ]
+            //     });
+            // }
+        </script>
+ 
+
+
+
+
+
+    </div>
+
+
+   
+
+    <script>
+        // $.fileup({
+        //     url: 'upload.php',
+        //     fieldName: 'files',
+        //     inputID: 'upload-1',
+        //     queueID: 'upload-1-queue',
+        //     onSuccess: function (response, file_number, file) {
+        //         $.growl.notice({ title: "Upload success!", message: file.name });
+        //     },
+        //     onError: function (event, file, file_number) {
+        //         $.growl.error({ message: "Upload error!" });
+        //     }
+        // });
+        // $.fileup({
+        //     url: 'upload.php',
+        //     fieldName: 'files',
+        //     inputID: 'upload-2',
+        //     dropzoneID: 'upload-2-dropzone',
+        //     queueID: 'upload-2-queue',
+        //     onSelect: function (file) {
+        //         $('#multiple .control-button').show();
+        //     },
+        //     onRemove: function (file, total) {
+        //         if (file === '*' || total === 1) {
+        //             $('#multiple .control-button').hide();
+        //         }
+        //     },
+        //     onSuccess: function (response, file_number, file) {
+        //         $.growl.notice({ title: "Upload success!", message: file.name });
+        //     },
+        //     onError: function (event, file, file_number) {
+        //         $.growl.error({ message: "Upload error!" });
+        //     }
+        // });
+        // $.fileup({
+        //     url: 'upload.php',
+        //     fieldName: 'files',
+        //     inputID: 'upload-3',
+        //     queueID: 'upload-3-queue',
+        //     autostart: true,
+        //     onSelect: function (file) {
+        //         $('#types .control-button').show();
+        //     },
+        //     onRemove: function (file, total) {
+        //         if (file === '*' || total === 1) {
+        //             $('#types .control-button').hide();
+        //         }
+        //     },
+        //     onSuccess: function (response, file_number, file) {
+        //         $.growl.notice({ title: "Upload success!", message: file.name });
+        //     },
+        //     onError: function (event, file, file_number) {
+        //         $.growl.error({ message: "Upload error!" });
+        //     }
+        // });
+        // $.fileup({
+        //     url: 'upload.php',
+        //     fieldName: 'files',
+        //     autostart: true,
+        //     inputID: 'upload-4',
+        //     queueID: 'upload-4-queue',
+        //     dropzoneID: 'upload-4-dropzone'
+        // })
+        //     .select(function (file) {
+        //         $('#dropzone .control-button').show();
+        //     })
+        //     .remove(function (file, total) {
+        //         if (file === '*' || total === 1) {
+        //             $('#dropzone .control-button').hide();
+        //         }
+        //     })
+        //     .success(function (response, file_number, file) {
+        //         $.growl.notice({ title: "Upload success!", message: file.name });
+        //     })
+        //     .error(function (event, file, file_number) {
+        //         $.growl.error({ message: "Upload error!" });
+        //     })
+        //     .dragEnter(function (event) {
+        //         $(event.target).addClass('over');
+        //     })
+        //     .dragLeave(function (event) {
+        //         $(event.target).removeClass('over');
+        //     })
+        //     .dragEnd(function (event) {
+        //         $(event.target).removeClass('over');
+        //     });
+
+    </script>
+
+</body>
+
+</html>

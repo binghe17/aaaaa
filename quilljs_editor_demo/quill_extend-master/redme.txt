@@ -1,0 +1,3 @@
+开源富文本编辑器：https://github.com/quilljs/quill
+文本编辑器_用在h5开发的手机上面修改图片选择方式，插入上传成功的URL地址，不是base64，base64会很大的请求
+参考：blog知乎：https://www.zhihu.com/question/63589376/answer/211207526

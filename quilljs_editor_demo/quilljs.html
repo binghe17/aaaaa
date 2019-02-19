@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <link rel="stylesheet" href="http://cdn.quilljs.com/1.3.6/quill.bubble.css">
+    <link rel="stylesheet" href="http://cdn.quilljs.com/1.3.6/quill.snow.css">
+    <link rel="canonical" href="https://quilljs.com/standalone/full/">
+    
+    
+</head>
+<body>
+    <div id="editor-container"></div>
+    <style>
+    #editor-container {
+        height: 375px;
+    }
+
+    </style>
+
+
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+<script src="http://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+var quill = new Quill('#editor-container', {
+  modules: {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ['bold', 'italic', 'underline','align'],
+      ['link', 'image', 'video', 'code-block']
+    ]
+  },
+  placeholder: 'Compose an epic...',
+  theme: 'snow'  // or 'bubble'
+});
+    </script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>文本编辑器_用在h5开发的手机上面修改图片选择方式，插入上传成功的URL地址，不是base64，base64会很大的请求</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+		<link href="quill.snow.css" rel="stylesheet">
+		<!--snow.css继续使用1.0.0-->
+		<!--该版本的清空功能可用-->
+		<script src="quill_v_1.2.0.js"></script>
+		<!--<script src="quill_v_1.3.4.js"></script>-->
+		<!--<script src="quill.js"></script>-->
+        <!--1.0.0版本的quill.js中link有bug,1.3.4最新版得到修正-->
+		<style>
+			/*编辑器样式修改*/
+			
+			.ql-snow .ql-picker.ql-size .ql-picker-label::before {
+				content: '中字体';
+			}
+			
+			.ql-toolbar.ql-snow .ql-formats {
+				margin-right: 8px;
+			}
+			
+			#editor {
+				min-height: 300px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- 创建工具栏组件 -->
+	<!--	<div id="toolbar">
+			<span class="ql-formats">
+              <button class="ql-bold">Bold</button>
+              <button class="ql-italic">Italic</button>   
+              <button class="ql-underline">下划线</button>  
+              <button class="ql-link">link</button>   
+          </span>
+			<span class="ql-formats">
+                  <select class="ql-header">
+                    <option value="1">标题</option>
+                    <option value="2">子标题</option>
+                    <option selected>普通文本</option>
+                  </select>
+          </span>
+			<span class="ql-formats">
+                  <button class="ql-list" value="ordered"></button>
+                  <button class="ql-list" value="bullet"></button>
+                  <select class="ql-align">
+                    <option selected></option>
+                    <option value="center"></option>
+                    <option value="right"></option>
+                    <option value="justify"></option>
+                  </select>
+          </span>
+			<span class="ql-formats">
+              <button class="ql-code-block"></button>   
+              <button class="ql-image" value="bullet"></button>    
+              <button class="ql-video"></button>
+          </span>
+			<span class="ql-formats">
+            <select class="ql-color">
+              <option selected></option>
+              <option value="red"></option>
+              <option value="orange"></option>
+              <option value="yellow"></option>
+              <option value="green"></option>
+              <option value="blue"></option>
+              <option value="purple"></option>
+            </select>
+            <select class="ql-background">
+              <option selected></option>
+              <option value="red"></option>
+              <option value="orange"></option>
+              <option value="yellow"></option>
+              <option value="green"></option>
+              <option value="blue"></option>
+              <option value="purple"></option> 
+            </select>
+          </span>
+			<span class="ql-formats">
+            <select class="ql-size">
+              <option value="10px">小字体</option>
+              <option value="18px">中字体</option>
+              <option value="32px">超大字</option>
+            </select>
+          </span>
+		</div>-->
+
+		<!-- 创建文本编辑器 -->
+		<div id="editor">
+			<p></p>
+		</div>
+
+		<script>
+			window.onload = function() {
+
+				var BackgroundClass = Quill.import('attributors/class/background');
+				var ColorClass = Quill.import('attributors/class/color');
+				Quill.register(BackgroundClass, true);
+				Quill.register(ColorClass, true);
+				//自定义主题
+				var toolbarOptions = [
+					['bold', 'italic', 'underline', 'strike', 'link'], // toggled buttons
+					['blockquote', 'code-block', 'image', 'video'],
+					[{
+						'header': 1
+					}, {
+						'header': 2
+					}], // custom button values
+					[{
+						'list': 'ordered'
+					}, {
+						'list': 'bullet'
+					}],
+					[{
+						'script': 'sub'
+					}, {
+						'script': 'super'
+					}], // superscript/subscript
+					[{
+						'indent': '-1'
+					}, {
+						'indent': '+1'
+					}], // outdent/indent
+					[{
+						'direction': 'rtl'
+					}], // text direction
+
+					[{
+						'size': ['small', false, 'large', 'huge']
+                        // 'size': []
+					}], // custom dropdown
+					[{
+						'header': [1, 2, 3, 4, 5, 6, false]
+					}],
+
+					[{
+						'color': ['red','orange','yellow','green','blue','purple','white','gray']
+					}, {
+						'background': ['red','orange','yellow','green','blue','purple','white','gray']
+					}], // dropdown with defaults from theme
+					[{
+						'font': []
+					}],
+					[{
+						'align': []
+					}],
+					['clean'] // remove formatting button
+				];
+
+				//初始化
+				window.editor_insertNum = 10000000000000; //10000000000000 = 1兆亿保证永远插在最后面
+				var editor = window.editor_quill = new Quill('#editor', {
+					modules: {
+						//toolbar: '#toolbar'
+						//自定义主题
+						toolbar: toolbarOptions
+					},
+					placeholder: '请编辑内容（图片限制20M，视频200M）...',
+					theme: 'snow'
+				});
+
+				/**
+				 * 下面内容参考
+				 * blog知乎：https://www.zhihu.com/question/63589376/answer/211207526
+				 */
+				//禁止调试
+				Quill.debug(false);
+				//自定义的事件
+				(editor || window.editor_quill).on("text-change", function(delta, oldDelta, source) {
+					if('user' === source) {
+						//打印当前的内容  quill.container.firstChild.innerHTML
+						console.log((editor || window.editor_quill).container.firstChild.innerHTML);
+					}
+				});
+				//图片
+				var toolbar = (editor || window.editor_quill).getModule('toolbar');
+				toolbar.addHandler("image", function(e) {
+					//console.log("自定义的事件-图片");               	   
+					(editor || window.editor_quill).insertEmbed((window.editor_insertNum || 10000000000000), 'image', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIRomHk_lUmIFno6KrnL7wMmCrVDew-EQpT5EC5mFJS0xp9lPhOw");
+				});
+				//视频 http://www.w3school.com.cn/i/movie.ogg
+				toolbar.addHandler("video", function(e) {
+					//10000000000000 = 1兆亿保证永远插在最后面
+					(editor || window.editor_quill).insertEmbed((window.editor_insertNum || 10000000000000), 'video', "http://www.w3school.com.cn/i/movie.ogg");
+				});
+			}
+		</script>
+	</body>
+
+</html>

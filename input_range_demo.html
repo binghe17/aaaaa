@@ -1,0 +1,78 @@
+<!-- <input type="text" value="ajsgkajlkgjklajklfjalksdjfla" class='inputText' /> -->
+<textarea class="inputText"></textarea>
+<script>
+document.onkeydown = function(e) {
+    console.log(e.keyCode)
+    var cursorPosition = getCursorPos(document.getElementsByClassName('inputText')[0])
+    switch (e.keyCode) {
+        case 37:
+            console.log('left',cursorPosition);
+            break;
+        case 38:
+            console.log('up',cursorPosition);
+            break;
+        case 39:
+            console.log('right',cursorPosition);
+            break;
+        case 40:
+            console.log('down',cursorPosition);
+            break;
+        case 83: //set 
+            console.log('s key' , setCursorPos(document.getElementsByClassName('inputText')[0], 1,10))
+       default:
+            console.log(e.keyCode)
+    }
+};
+
+
+
+function getCursorPos(input) {
+    if ("selectionStart" in input && document.activeElement == input) {
+        return {
+            start: input.selectionStart,
+            end: input.selectionEnd
+        };
+    }
+    else if (input.createTextRange) {
+        var sel = document.selection.createRange();
+        if (sel.parentElement() === input) {
+            var rng = input.createTextRange();
+            rng.moveToBookmark(sel.getBookmark());
+            for (var len = 0;
+                     rng.compareEndPoints("EndToStart", rng) > 0;
+                     rng.moveEnd("character", -1)) {
+                len++;
+            }
+            rng.setEndPoint("StartToStart", input.createTextRange());
+            for (var pos = { start: 0, end: len };
+                     rng.compareEndPoints("EndToStart", rng) > 0;
+                     rng.moveEnd("character", -1)) {
+                pos.start++;
+                pos.end++;
+            }
+            return pos;
+        }
+    }
+    return -1;
+}
+
+
+function setCursorPos(input, start, end) {
+    if (arguments.length < 3) end = start;
+    if ("selectionStart" in input) {
+        setTimeout(function() {
+            input.selectionStart = start;
+            input.selectionEnd = end;
+        }, 1);
+    }
+    else if (input.createTextRange) {
+        var rng = input.createTextRange();
+        rng.moveStart("character", start);
+        rng.collapse();
+        rng.moveEnd("character", end - start);
+        rng.select();
+    }
+}
+
+
+</script>
