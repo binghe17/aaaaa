@@ -1,0 +1,37 @@
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<iframe id="mainframe" src=""></iframe>
+<script>
+//[javascript] iframe의 src속성변경시 이벤트 실행
+//참고출처: https://code.i-harness.com/ko-kr/q/251075
+
+//iframe주소변경감지
+function iframeURLChange(iframe, callback) {
+    var unloadHandler = function () {
+        setTimeout(function () {
+            callback(iframe.contentWindow.location.href);
+        }, 0);
+    };
+    function attachUnload() {
+        iframe.contentWindow.removeEventListener("unload", unloadHandler);
+        iframe.contentWindow.addEventListener("unload", unloadHandler);
+    }
+    iframe.addEventListener("load", attachUnload);
+    attachUnload();
+}
+
+//전체화면 전환
+URL001 = '';
+iframeURLChange(document.getElementById("mainframe"), function (newURL) {
+    // console.log("URL changed:", newURL ,typeof newURL);
+    // console.log(location.href)
+    if(URL001 == ''){//첫 iframe주소변경시 저장
+        URL001 =  newURL;
+    }else{
+        if(newURL != URL001){//첫 iframe주소와 다를시 전체화면 넘겨줌
+            location.href = newURL;
+        }
+    }
+});
+
+
+</script>

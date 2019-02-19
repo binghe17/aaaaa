@@ -1,0 +1,35 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>Switching action field in HTML form - Example 1</title>
+	<link rel="STYLESHEET" type="text/css" href="/style/jsc.css">
+</head>
+
+<body>
+<SCRIPT language="JavaScript">
+function OnSubmitForm()
+{
+	if(document.pressed == 'Insert')
+	{
+		document.myform.action ="insert.html";
+	}
+	else
+	if(document.pressed == 'Update')
+	{
+		document.myform.action ="update.html";
+	}
+	return true;
+}
+</SCRIPT>
+<FORM name="myform" onSubmit="return OnSubmitForm();">
+Name: <INPUT TYPE="TEXT" Name="name"><br>
+Email: <INPUT TYPE="TEXT" Name="name"><br>
+<INPUT TYPE="SUBMIT" name="Operation" onClick="document.pressed=this.value" VALUE="Insert">
+<INPUT TYPE="SUBMIT" name="Operation" onClick="document.pressed=this.value" VALUE="Update">
+</FORM>
+	<P>
+	Back to article:<br>
+	<a href="http://javascript-coder.com/html-form/html-form-action.phtml">Switching HTML form action field dynamically</a>
+	</P>
+</body>
+</html>
