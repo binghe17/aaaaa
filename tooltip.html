@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+            .wrapper {width:500px; border: 1px solid #ccc; padding:4px; position: relative; }
+    </style>            
+</head>
+<body>
+
+<div class="tooltip_wrap">
+    <div class="wrapper">
+        <!-- <div class="tooltip_br">
+            <i class="fa fa-info-circle"></i>
+            <div class="help">
+                <i class="fa fa-exclamation-circle"></i> 추천게시물은 최근 작성된 모든 게시글의 공감수, 조회수, 댓글수를 조합한 추천 알고리즘을 통해 상위 13개의 게시물을 자동 선정합니다.
+            </div>
+        </div> -->
+        aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa
+        aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa
+        aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa
+        aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaa  aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa
+
+        <div style="clear:both;"></div>
+    </div>
+</div>
+
+<div class="col-sm-6">
+    <div class="wrapper">
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+        
+<script>
+    function addTooltip(sel, msg){
+        $(sel).prepend(`
+            <div class="tooltip_br">
+                <i class="fa fa-info-circle"></i>
+                <div class="help">
+                    ${msg}
+                </div>
+            </div>
+        `);
+    }
+    addTooltip('.wrapper','<i class="fa fa-exclamation-circle"></i> 추천게시물은 최근 작성된 모든 게시글의 공감수, 조회수, 댓글수를 조합한 추천 알고리즘을 통해 상위 13개의 게시물을 자동 선정합니다.')
+    $('.tooltip_br>i').click(function(){
+        $(this).parent().find('.help').toggle();
+    });
+</script>
+<style>
+    .tooltip_wrap { position: relative;}
+    .tooltip_br { display: block; float: right; font-size: 14px; color: #666; margin-right: 10px;  }
+    .tooltip_br:focus, .tooltip_br:hover { outline: none; color: #000 }
+    .tooltip_br > i { cursor: pointer;  }
+    .tooltip_br > .help { display: none; position: absolute; z-index: 9; min-width: 85px; text-align: left; right:4px; top: 26px; width: 260px; font-size: 12px; font-weight: normal; color: #333; line-height: 1.45; padding: 10px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 1px 3px rgba(0,0,0,0.1); background-color: #FFFDE7;  }
+    .tooltip_br > .help:before { content: ""; position: absolute; top: -11px; right: 15px; margin-right: -5px; border-width: 5px; border-style: solid; border-color: transparent transparent rgba(0,0,0,0.1) transparent }
+    .tooltip_br > .help:after { content: ""; position: absolute; top: -10px; right: 15px; margin-right: -5px; border-width: 5px; border-style: solid; border-color: transparent transparent #FFFDE7 transparent }
+</style>
+
+
+
+
+</body>
+</html>
