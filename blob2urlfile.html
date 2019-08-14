@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blob Test</title>
+    <script>
+        function createDownloadFile() {
+            var content = "Blob Data";
+            var fileType ='text/plain';
+            var b = new Blob([content], {type: fileType});
+            f = new File([b], 'demo.txt', {type: fileType})
+            url = URL.createObjectURL(b) //url생성
+            
+            console.log(b,f,url)
+            var link = document.getElementsByTagName("a")[0];
+            // link.download = "file";
+            link.target ='_blank';
+            link.href = url;
+
+            setTimeout(function(){//3초후
+                URL.revokeObjectURL(url) //url삭제 
+            },3000);
+
+        }
+        window.onload = createDownloadFile;
+    </script>
+</head>
+
+<body>
+    <a>open file</a>
+</body>
+
+</html>
