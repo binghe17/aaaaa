@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <title>textarea to div</title>
+    <style>
+        #box1 {border:1px solid #ccc;}
+        #text1 {width:100%; height:200px;}
+        /* .iframeWrap {position: relative;  } */
+        iframe {position: relative; z-index:1; display:inline-block;}
+        .mask {opacity: 0.6; width:100%;height:100%; position:absolute; z-index:2; display: inline;}
+    </style>
+</head>
+<body>
+    <div id="box1" contenteditable="true">
+
+
+
+            <iframe width="420" height="315" src="https://www.youtube.com/embed/WNmnpGC_hgE" frameborder="0" allowfullscreen></iframe>
+        
+    </div>
+    <div style="text-align: center; padding:10px;"><button id="btn2">div to textarea</button><button id="btn1">textarea to div</button></div>
+    <textarea id="text1"></textarea>
+        
+        
+    <script>
+        $('#btn1').click(function(){
+            console.log($('#text1').text())
+            $('#box1').html( $('#text1').val() );
+        })
+        $('#btn2').click(function(){
+            console.log($('#box1').html())
+            $('#text1').val( $('#box1').html() );
+        })
+        $('#box1 iframe').each(function(){
+            let d = $(this);
+            let w = d.css('width');
+            let h = d.css('height');
+            // console.log(w,h)
+            d.wrap('<div style="display:block;"></div>');
+            d.before('<img disabled draggable="false" class="mask" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" />')
+            d.attr('disabled','disabled')
+            // d.parents('.iframeWrap').css({'width': w, 'height': h});
+            d.parent().find('.mask').css({'width': w, 'height': h});
+            // d.css({'width':'100%', 'height':'100%'}).removeAttr('width').removeAttr('height');
+        });
+        // $('iframe').parent().click(function(event){
+        //     console.log(111111)
+        //     event.stopPropagation();  
+        // })
+
+    
+    </script>
+
+
+
+</body>
+</html>

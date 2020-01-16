@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <title>textarea to div</title>
+    <style>
+        #box1 {border:1px solid #ccc;}
+        #text1 {width:100%; height:200px;}
+        /* .iframeWrap {position: relative;  } */
+        /* iframe {position: relative; z-index:1;}
+        .mask {opacity: 0.6; width:100%;height:100%; position:absolute; z-index:2;} */
+        .iframeBox {
+            display: inline-flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            background:#555;
+            margin:0 2px; 
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select:none;
+            -o-user-select:none;
+            user-select:none;
+        }
+        .iframeBox p { background: #333; color: #fff; padding: 5px 10px; font-size: small; border-radius: 2px;}
+
+    </style>
+</head>
+<body>
+    <div id="box1" contenteditable="true">
+
+
+          
+            <iframe width="420" height="315" src="https://www.youtube.com/embed/WNmnpGC_hgE" frameborder="0" allowfullscreen></iframe>
+        
+    </div>
+    <div style="text-align: center; padding:10px;"><button id="btn2">저장</button><button id="btn1">편집</button></div>
+    <textarea id="text1"></textarea>
+        
+        
+    <script>
+
+
+    (function (old) {
+        //获取元素的所有属性
+        $.fn.attr = function () {
+            if (arguments.length === 0) {
+                if (this.length === 0) {
+                    return null;
+                }
+
+                var obj = {};
+                $.each(this[0].attributes, function () {
+                    if (this.specified) {
+                        obj[this.name] = this.value;
+                    }
+                });
+                return obj;
+            }
+
+            return old.apply(this, arguments);
+        };
+    })($.fn.attr);
+
+        $('#text1').val( $('#box1').html() );
+        $('#btn1').click(function(){
+            $('#box1').html( $('#text1').val() );
+            
+            console.log($('#text1').text())
+            $('#box1 iframe').each(function(){
+                let d = $(this);
+                let w = d.css('width');
+                let h = d.css('height');
+                let src = d.attr('src');
+                // console.log(d.attr(),d.attr('width'))
+
+                d.replaceWith('<span class="iframeBox" contenteditable="false" data-src="'+ d.attr('src') +'" style="width: '+ w +'; height: '+ h +';" ><h1>Youtube</h1><br><p class="src">'+ src +'</p></span>')
+            });
+            // $('#text1').val( $('#box1').html() );
+            
+        })
+        $('#btn2').click(function(){
+            console.log($('#box1').html())
+            $('#box1 .iframeBox').each(function(){
+                let d = $(this);
+                let w = d.css('width');
+                let h = d.css('height');
+                let src = d.attr('data-src');
+                // console.log(d.attr(),d.attr('width'))
+                d.replaceWith('<iframe src="'+ src +'" style="width: '+ w +'; height: '+ h +';" frameborder="0" allowfullscreen></iframe>')
+            });
+            $('#text1').val( $('#box1').html() );
+        })
+        // $('#btn2').click();
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>
