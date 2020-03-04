@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <style>
+        div {border:1px solid #ccc; padding: 5px; }
+    </style>
+</head>
+<body>
+    <div onclick="console.log('aaaaaa')">aaaa</div>
+    <div onclick="fun1();console.log(222)">bbb</div>
+    <div id="item1">ccc</div>
+    <br><br>
+    <div id="item2">ddd</div>
+
+
+<script>
+    function fun1(){
+        console.log('fun1 click ')
+    }
+    var fun3 ;// var로 정의한건 delete로 삭제 불가
+    let fun4 ;// let로 정의한건 delete로 삭제 불가
+    fun5=null;// 삭제가능
+    document.querySelector('#item1').onclick = function (){
+        console.log(event , typeof fun2)
+        if(typeof fun2 === 'undefined'){
+            function fun2(){//구역내 임시 사용 함수
+                console.log('fun2 정의')
+            }
+            fun2(); //
+            fun5 = fun4 = fun3 = fun2; //전역변수에 주기
+            delete fun3;
+            delete fun4;
+            delete fun5;
+            fun3();
+            fun4();
+            fun5();//삭제되므로 에러생김
+
+        }
+    }
+</script>
+
+<!-- script 추가 실행후 script태그 삭제 해본 예제 -->
+<script id="runToDel">
+    document.getElementById('runToDel').remove();//script태그 삭제해도 정의한 변수 함수는 메모리에 계속 존재한다. 
+    console.log('runToDel')
+    function run1(str){
+        console.log('run1', str);
+    }
+    var a = 111;
+    let b = 222;
+    c = 333;
+    //관리자 도구에서 script태그가 삭제되지만 정의했던 모든 변수함수는 살아있음.
+    setTimeout(function(){
+        console.log('delay 1s modify runToModify',1111111)
+        $('#runToModify').replaceWith(`
+            <script id="runToModify">
+                document.getElementById('runToModify').remove();
+                console.log('delay 1s modify runToModify', 222222)
+                function run3(str){
+                    console.log('run3',str);
+                }
+                e= 5555;
+                // run3('asdf')
+            <` + `/script>
+        `);
+    },1000)
+</script>
+<script id="runToModify">
+    console.log('runToModify')
+    function run2(str){
+        console.log('run2',str);
+    }
+    d = 4444;
+</script>
+
+
+
+
+<!-- style 추가 실행후 style태그 삭제 해본 결과 -->
+<style id="css1">
+    body {border: 5px solid #333;}
+</style>
+<script>
+    setTimeout(function(){
+        $('#css1').html(' body {border-bottom: 10px solid red; }');//(style태그의 내용의 변화를 감지한다.)
+    },1000)
+    setTimeout(function(){
+        $('#css1').remove(); //2초후에 태그를 삭제 하면 효과도 함께 없어진다. (style태그의 변화를 감지한다.)
+    },2000)
+    // 수정했다고 우선순서도 함께 높아지는것은 아니다.(처음에 태그 초기화된 대로 우선순서가 유지된다.)
+</script>
+<style>
+    body {border-left: 5px solid green;}
+</style>
+    
+
+
+<!-- body 앞과 뒤에 추가 했을때의 우선순위를 본다. (수정할시점의 우선순위가 젤 높은것이 아니다) -->
+<div id="cssbox">
+    <div id="box1">
+        <div id="box2">
+            <div id="box3"></div>
+        </div>
+    </div>
+</div>
+<script>
+setTimeout(function(){
+    $('#cssbox').prepend('<style> #cssbox div {border:1px solid #ccc; padding:10px;} #cssbox style {display:block} </style>');
+    $('#box1').prepend('<style> #cssbox > div {border:10px solid red;font-size:10px} </style>');
+}, 500);
+setTimeout(function(){
+    $('#box1').append('<style> #cssbox > div {border-bottom:20px solid yellow;font-weight:bold;} </style>');
+}, 1000);
+setTimeout(function(){
+    $('#box2').prepend('<style> #cssbox > div {border:30px solid green; text-decoration: underline;} </style>');
+}, 1500);
+setTimeout(function(){
+    $('#box2').append('<style> #cssbox > div {border:40px solid blue; color:blue;} </style>');
+}, 2000);
+setTimeout(function(){
+    $('#box1').prepend('<style> #cssbox > div {border-top:60px solid #ccc; font-weight:unset;     color:green!important; background:#eee;} </style>');
+}, 2500);
+//최하단에 있는 style태그가 우선권이 제일 강함, 위로가면서 약함. 동적으로 우선권을 고려해서 태그를 삽입하면 강약도 조절가능함.
+</script>
+
+
+
+
+
+<!-- 최종 -->
+<script>
+    //페이지 내의 모든 스크랩트를 삭제한다.
+    // setTimeout(function(){
+        console.log('delete all script tag')
+        $('script').remove();
+    // },3000); //3초 delay없으면 1초뒤에 실행되는 #runToModify태그 변경이 실행되기전에 태그가 삭제되어 찾을수 없으므로 (run3함수 정의하는 코드가 실행할수 없어서) 수정할수 없게 된다.
+                //외부자원 jquery도 계속사용할수 있다.
+</script>
+
+</body>
+</html>
