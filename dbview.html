@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* * {padding: 0; margin: 0 ;} */
+        #wrapper {width:600px; margin:0 auto; border: 1px solid #ccc; padding: 5px;}
+        #wrapper img{width:100%;}
+        #wrapper h1 { font-size: 18px; text-align: center;}
+        /* #wrapper div { font-size: 18px;  text-decoration-line: underline; text-decoration-style: inherit; text-decoration-color: red; letter-spacing: 0.0625em; word-spacing: 0em; text-underline-position: under;} */
+        #wrapper h2 { font-size: 18px; position: relative;}
+        #wrapper h2:after { content: ""; background: red; position: absolute; bottom: -5px; left: 0; height: 3px; width: 40px;}
+        #wrapper p {margin: 5px 0;}
+        #yearbox { margin: 30px 0; }
+        #yearbox mark { padding: 25px 0; position: relative; }
+        #yearbox mark::after { content: "성수기"; position: absolute; bottom: 2px; left: 36%; }
+        #yearbox mark b { position: absolute; }
+        #yearbox span {border:1px solid #ccc; text-align: center; width: 8%; display: inline-block; padding:2px 0; margin-right:-1px;}
+        .scrolltop { display: none; position: fixed; right: 30px; bottom: 50px; z-index: 1030; font-size: 1.875rem; color: #868e96; transition: all 0.5s ease-in-out; opacity: 0.8;}
+        .scrolltop:hover, .scrolltop:focus { color: #dc3545; transition: all 0.5s ease-in-out; }
+        /* #yearbox mark { background: linear-gradient(45deg, #cc95c0 50%, #dbd4b4 0); background-size:2px 30px; } */
+        #yearbox mark {background: repeating-linear-gradient(-45deg,transparent, #eee, #eee 2px, #fff 0, #fff 4px); border: 1px solid #eee;}
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="imgHeader">
+            <img src="https://i.ytimg.com/vi/CXLkdhe4_0M/maxresdefault.jpg">
+        </div>
+        <h1>필리핀 다이빙의 입문 팡글라오 보홀</h1>
+
+        <h2 title="* 요약에서 각 항목을 링크화 해서 클릭시 디테일페이지로 이동">요약</h2>
+        <p>통칭: <a href="#tag1">보홀</a></p>
+        <p>위치: <a href="#tag2">필리핀 팡글라오 섬</a></p>
+        <p>시즌: <a href="#tag3">일년내내</a></p>
+        <p>가는법: <a href="#tag4">탁빌라란 공항 직항 외 다양</a></p>
+        <p>다이빙 환경: <a href="#tag5">수온2~29도 | 시야 보통 |난이도 최하</a></p>
+        <p>수중환경: <a href="#tag5">잭피쉬 스쿨링 | 건강한 산호 | 월 지형</a></p>
+        <p>포인트: <a href="#tag6">Black Forest, Dolho 외 다수</a></p>
+        <p><a href="#tag7">샵&리버보드 정보</a></p>
+        <p><a href="#tag8">위플 추천 스케줄</a></p>
+        <br><br>
+
+
+
+        <h2 id="tag1">보홀</h2>
+        <p>보홀은 ~~~가 유명하고 뭐시기가 어때서 어떻고 (사이트소개)</p>
+        <br><br>
+
+
+        <h2 id="tag2">위치</h2>
+        <p>보홀은 필리핀 세부지역 남부 xxx섬 끝쪽 탁빌라란에 위치한 다이빙 사이트 입니다.</p>
+        <p>주변 사이트로는 <a href="https://www.tripadvisor.co.kr/Search?q=%EB%AA%A8%EC%95%8C%EB%B3%B4%EC%95%8C" target="_blank">모알보알</a>, <a href="https://www.tripadvisor.co.kr/Restaurants-g659555-Malapascua_Island_Cebu_Island_Visayas.html" target="_blank">말라파스쿠아</a> 등이 있습니다.  (간단한 위치 설명 및 주변 사이트 소개 주변 사이트는 링크화 해서 클릭시 해당지역으로 </p>이동)
+        <p>[지도 삽입] (여러 포인트가 가능 지도, 줌 가능한 지도) </p>
+        <div class="apms-map" style="width:100%; margin:0 auto 15px; max-width:800px;">
+            <iframe width="100%" height="480" src="http://waterplay.kr/bbs/google.map.php?geo=9.605856,123.796549,9&marker=테스트&place=보홀" frameborder="0" scrolling="no"></iframe>
+        </div>
+        <br><br>
+
+
+        <h2 id="tag3" title="(간단한 텍스트 설명 + 그래픽)">시즌</h2>
+        <p>다이빙은 1년 내내 가능하고 피크시즌은 3월~5월 입니다.</p>
+        <!-- <p>(간단한 텍스트 설명 + 그래픽)</p> -->
+        <div id="yearbox">
+            <span>1월</span><span>2월</span><mark title="성수기(3~5월선택)"><span>3월</span><span>4월</span><span>5월</span></mark><span>6월</span><span>7월</span><span>8월</span><span>9월</span><span>10월</span><span>11월</span><span>12월</span>
+        </div>
+        <br><br>
+
+
+        <h2 id="tag4">가는법</h2>
+        <p>1.탁빌라란(TAG) 직한. 제주항공 매일 운항 (인천 > 보홀 JE203편, 보홀 > 인천 204편) skyscanner</p>
+        <p>2.세부에서 패리로 이동 </p>
+        <img src="https://assets-global.website-files.com/5b0ee246bd5a96cce5ca393b/5cba230d3c563186325ea04a_skyscanner%208.jpg" title="* 가는 법 설명. 디테일하게 설명하면 좋을듯. ">
+        <br><br>
+
+
+        <h2 id="tag5">다이빙 환경</h2>
+        <p>수온은 1년 내내 따뜻하고</p>
+        <p>시야는 보통</p>
+        <p>난이도는 쉬운편으로 다이빙을 입문하는 초보자들에게 추천</p>
+        <br><br>
+
+        
+        <h2 id="tag6">다이빙 포인트</h2>
+        <p>보홀 다이빙 포인트 바로가기 (포인트 모아놓은 지도로 이동)</p>
+        <br><br>
+
+
+        <h2 id="tag7">샵&리버보드 정보</h2>
+        <p><a href="https://www.google.com/search?q=보홀 샵" target="_blank">보홀 샵 리스트 바로가기</a></p>
+        <p><a href="https://www.google.com/search?q=보홀 리버보드">보홀 리버보드 리스트 바로가기</a></p>
+        <br><br>
+
+
+        <h2 id="tag8">워플 추천 스케줄</h2>
+        <p><a href="https://www.google.com/search?q=보홀 샵">보홀 샵 리스트 바로가기</a></p>
+        <p><a href="https://www.google.com/search?q=보홀 리버보드">보홀 리버보드 리스트 바로가기</a></p>
+        <br><br>
+    </div>
+    <a id="backToTop" class="scrolltop" href="#">
+        top
+    </a>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script>
+
+        $('#wrapper').on('click', 'a[href^="#"]', function(){
+            event.preventDefault();
+            event.stopPropagation();
+            // console.log()
+            let href = $(this).attr('href');
+            document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+        })
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 100) {
+            $('#backToTop').fadeIn(500);
+          } else {
+            $('#backToTop').fadeOut('slow');
+          }
+        });
+        $('#backToTop').click(function (e) {
+          e.preventDefault();
+          $('html, body').animate({scrollTop: 0}, 200);
+        });
+
+    </script>
+
+
+</body>
+</html>
